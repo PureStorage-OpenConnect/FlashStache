@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+    {% block head %}
+    <head>
+      <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+      <script src="{% static 'js/jquery-3.2.0.js' %}"></script>
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+        <title>
+            {% block title %}
+            {% endblock title %}
+        </title>
+    </head>
+    {% endblock head %}
+    {% block nav %}
+  <div class="jumbotron">
+    <h1>FlashStache</h1>
+    <p>A Simple and Responsive FlashArray Monitoring System.</p>
+  </div>
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://github.com/PureStorage-OpenConnect/FlashStache">FlashStache</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse pull-right">
+          <ul class="nav navbar-nav">
+              <!-- User Login/Logout -->
+              {% if user.is_authenticated %}
+              <li class="divider-vertical"></li>
+              <li><a href="{% url 'flasharray:logout' %}">Sign Out</a></li>
+              <li class="divider-vertical"></li>
+              {% else %}
+              <li class="dropdown">
+                  <a class="dropdown-toggle" href="{% url 'flasharray:login' %}" data-toggle="dropdown">Log In <strong class="caret"></strong></a>
+                  <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;" id="login_menu">
+                      <form action="" method="post" accept-charset="UTF-8">
+                          {% csrf_token %}
+                          <input id="user_username" style="margin-bottom: 15px;" type="text" name="username" placeholder="Username" size="30" />
+                          <input id="user_password" style="margin-bottom: 15px;" type="password" name="password" placeholder="Password" size="30" />
+                          <input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="user[remember_me]" value="1" />
+                          <label class="string optional" for="user_remember_me"> Remember me</label>
+                          <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="commit" value="Sign In" />
+              </form>
+            </div>
+          </li>
+            {% endif %}
+          <li class="divider-vertical"></li>
+            <!-- Other Links -->
+            <li><a href="/">Home</a></li>
+            <li><a href="/flasharray/templates/logs.html">Logs</a></li>
+          </ul>
+        </div>
+    </nav> <!-- End of Navigation Bar -->
+    <br>
+    {% endblock %}
+    <body>
+    <style>body {padding-top: 1em; padding-left: 1em}</style>
+        {% block content %}
+
+        {% endblock %}
+    </body>
+</html>

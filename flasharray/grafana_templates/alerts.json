@@ -1,0 +1,30 @@
+{
+      "collapse": true,
+      "height": "100px",
+      "panels": [
+        {
+          "description": "Custom Alerts",
+          "id": 1,
+          "limit": 10,
+          "links": [],
+          "onlyAlertsOnDashboard": true,
+          "show": "current",
+          "sortOrder": 1,
+          "span": 12,
+          "stateFilter": [
+            "alerting",
+            "execution_error",
+            "no_data"
+          ],
+          "title": "Active Alerts",
+          "transparent": true,
+          "type": "alertlist"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Alerts",
+      "titleSize": "h6"
+    }

@@ -1,0 +1,160 @@
+{
+      "collapse": true,
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {
+            "Read Bandwidth": "#E0F9D7",
+            "Read Latency": "#3F6833",
+            "SAN Write Latency": "#EF843C",
+            "Write Bandwidth": "#BADFF4",
+            "Write Latency": "#0A50A1"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MYSQL-DEFAULT}",
+          "decimals": 0,
+          "description": "An Overall view of performance on the Pure FlashArray.",
+          "fill": 5,
+          "id": 3,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Read Latency",
+              "dashes": true,
+              "fill": 0,
+              "stack": false,
+              "yaxis": 2
+            },
+            {
+              "alias": "Write Latency",
+              "dashes": true,
+              "fill": 0,
+              "stack": false,
+              "yaxis": 2
+            },
+            {
+              "alias": "SAN Read Latency",
+              "dashes": true,
+              "fill": 0,
+              "stack": false,
+              "yaxis": 2
+            },
+            {
+              "alias": "SAN Write Latency",
+              "dashes": true,
+              "fill": 0,
+              "stack": false,
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  input_per_sec as value,\n  \"Write Bandwidth\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+              "refId": "A"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  output_per_sec as value,\n  \"Read Bandwidth\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+              "refId": "B"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  usec_per_read_op as value,\n  \"Read Latency\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC",
+              "refId": "C"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  usec_per_write_op as value,\n  \"Write Latency\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC",
+              "refId": "D"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  san_usec_per_read_op as value,\n  \"SAN Read Latency\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC",
+              "refId": "E"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  san_usec_per_write_op as value,\n  \"SAN Write Latency\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC",
+              "refId": "F"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "FlashArray Performance",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "Bps",
+              "label": "Bandwidth",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "decimals": 0,
+              "format": "µs",
+              "label": "Latency",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "FlashArray Performance",
+      "titleSize": "h6"
+    }

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    FlashArray Home
+{% endblock title %}
+{% block head %}
+{{ block.super }}
+<meta http-equiv="refresh" content="30" >
+{% endblock head %}
+<body>
+    {% block content %}
+        <div class="container-fluid">
+            <table class="table table-bordered" align="center">
+                <thead>
+                <tr>
+                    <th>FlashArray Name</th>
+                    <th>Remote Assist Status</th>
+                    <th>Controller Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <h4><a href="/flasharray/create_array"><span class="glyphicon glyphicon-plus"></span> Add a FlashArray</a></h4>
+                    </td>
+                    <td><h4>-</h4></td>
+                    <td><h4>-</h4></td>
+                </tr>
+                {% for array in arrays %}
+                <tr>
+                    <!-- Name -->
+                    <td><h4> {{array.hostname}}</h4><a class="btn btn-warning btn-sm" href="{{url}}/flasharray/update_array/{{array.hostname}}">
+                        <span class="glyphicon glyphicon-wrench"></span> Edit</a>
+                        <a class="btn btn-danger btn-sm" href="{{url}}/flasharray/delete_array/{{array.hostname}}">
+                        <span class="glyphicon glyphicon-trash"></span> Delete</a>
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#dashboard_{{array.hostname}}">Open Dashboard</button>
+                        <a class="btn btn-success btn-sm" href="https://{{array.ip_address}}" target="_blank">Open GUI</a>
+                    </td>
+                    <!-- Remote Assist Status -->
+                    <td>
+                    {% if not remote_assist %}
+                        <h4 style="color:white background-color:yellow!important">Unknown</h4>
+                    {% else %}
+                        {% for array_connection in remote_assist %}
+                            {% if array_connection.hostname == array.hostname %}
+                            {% if array_connection.status %}
+                            <h4 style="color:white background-color:green!important">Connected</h4>
+                            {% else %}
+                            <h4 style="color:white background-color:red!important">Not Connected</h4>
+                            {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    </td>
+                    <!-- Controller Status -->
+                    <td>
+                        {% if not array_status %}
+                            <h4 style="color:white background-color:yellow!important">Unknown</h4>
+                        {% else %}
+                            {% for controller in array_status %}
+                                {% if controller.hostname == array.hostname %}
+                                <h4>{{controller.name}}: ({{controller.model}}/Purity {{controller.version}}) {{controller.mode}}: {{controller.status}}</h4>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+                </tbody>
+                <!-- Dashboard Modal -->
+                <div id="dashboard_{{array.hostname}}" class="modal fade" role="dialog">
+                  <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{array.hostname}} Dashboard</h4>
+                      </div>
+                      <div class="modal-body">
+                          <p><a href={{grafana}}/dashboard/script/flash_stache.js?hostname={{array.hostname}}&{{array.dashboards|join:"&"}}>Full Screen</a></p>
+                        <p><iframe width=800 height=800 frameborder="0" src={{grafana}}/dashboard/script/flash_stache.js?hostname={{array.hostname}}&{{array.dashboards|join:"&"}}></iframe></p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Dashboard Modal -->
+                {% endfor %}
+        </table> <!-- End Table -->
+        </div> <!-- End Fluid Container -->
+    {% endblock %}
+</body>
+</html>

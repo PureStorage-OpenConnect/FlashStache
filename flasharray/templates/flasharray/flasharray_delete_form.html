@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Delete a FlashArray
+{% endblock title %}
+
+<!-- Main content -->
+{% block content %}
+    <div class="panel panel-default">
+      <div class="panel-heading">Delete FlashArray: {{model.hostname}}</div>
+      <div class="panel-body">
+          <form action="" method="post">{% csrf_token %}
+            <p>Are you sure you want to delete "{{ object }}"?</p>
+            <input type="submit" value="Confirm" class="btn btn-primary"/>
+            <a href="/" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
+          </form>
+      </div>
+    </div>
+    <h1></h1>
+    <hr>
+
+{% endblock content %}

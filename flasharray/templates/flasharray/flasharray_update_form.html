@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Edit FlashArray
+{% endblock title %}
+
+<!-- Main content -->
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">Edit FlashArray: {{object}}</div>
+        <div class="panel-body">
+            <form action="" method="post">{% csrf_token %}
+        {% for field in form %}
+        <p class="bg-warning">{{ field.errors }}</p>
+        <div class="fieldWrapper">
+            <h6 data-toggle="tooltip" title="{{field.help_text}}">{{ field.label_tag }} {{ field }}</h6>
+        </div>
+        <hr>
+        {% endfor %}
+        <input type="submit" value="Update" class="btn btn-primary"/>
+        <a href="/" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,143 @@
+{
+    "collapse": true,
+    "height": 250,
+    "panels": [
+      {
+        "aliasColors": {
+          "Array Capacity": "#E0752D",
+          "Deduplicated Space": "#705DA0",
+          "Snapshot Space": "#0A437C",
+          "System Space": "#9AC48A"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "${DS_MYSQL-DEFAULT}",
+        "decimals": 2,
+        "description": "Overall view of the Pure FlashArray's Space Utilization.",
+        "fill": 1,
+        "id": 2,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "hideEmpty": true,
+          "hideZero": false,
+          "max": false,
+          "min": false,
+          "rightSide": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null as zero",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "Reduction Ratio",
+            "dashes": true,
+            "fill": 0,
+            "yaxis": 2
+          },
+          {
+            "alias": "Array Capacity",
+            "dashes": true,
+            "fill": 0,
+            "stack": false
+          }
+        ],
+        "spaceLength": 10,
+        "span": 12,
+        "stack": true,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "",
+            "format": "time_series",
+            "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  capacity as value,\n  \"Array Capacity\" as metric\nFROM flasharray_arrayspace\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+            "refId": "A"
+          },
+          {
+            "alias": "",
+            "format": "time_series",
+            "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  shared_space as value,\n  \"Deduplicated Space\" as metric\nFROM flasharray_arrayspace\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+            "refId": "B"
+          },
+          {
+            "alias": "",
+            "format": "time_series",
+            "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  snapshots as value,\n  \"Snapshot Space\" as metric\nFROM flasharray_arrayspace\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+            "refId": "C"
+          },
+          {
+            "alias": "",
+            "format": "time_series",
+            "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  system as value,\n  \"System Space\" as metric\nFROM flasharray_arrayspace\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+            "refId": "D"
+          },
+          {
+            "alias": "",
+            "format": "time_series",
+            "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  volumes as value,\n  \"Volume Space\" as metric\nFROM flasharray_arrayspace\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+            "refId": "E"
+          },
+          {
+            "alias": "",
+            "format": "time_series",
+            "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  data_reduction as value,\n  \"Reduction Ratio\" as metric\nFROM flasharray_arrayspace\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC",
+            "refId": "F"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "FlashArray Space",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "transparent": true,
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 0,
+            "format": "decbytes",
+            "label": "Used Space",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "decimals": 2,
+            "format": "none",
+            "label": "Space Reduction",
+            "logBase": 1,
+            "max": "25",
+            "min": "0",
+            "show": true
+          }
+        ]
+      }
+    ],
+    "repeat": null,
+    "repeatIteration": null,
+    "repeatRowId": null,
+    "showTitle": true,
+    "title": "FlashArray Space",
+    "titleSize": "h6"
+    }

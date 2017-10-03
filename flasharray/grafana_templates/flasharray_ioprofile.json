@@ -1,0 +1,132 @@
+{
+      "collapse": true,
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {
+            "Read IO Size": "#0A50A1",
+            "Read IOPs": "#BADFF4",
+            "Write IO Size": "#BF1B00",
+            "Write IOPs": "#E0F9D7"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MYSQL-DEFAULT}",
+          "description": "Overview of IO Count and Sizes",
+          "fill": 5,
+          "id": 4,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideEmpty": true,
+            "hideZero": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Write IO Size",
+              "dashes": true,
+              "fill": 0,
+              "stack": false,
+              "yaxis": 2
+            },
+            {
+              "alias": "Read IO Size",
+              "dashes": true,
+              "fill": 0,
+              "stack": false,
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  reads_per_sec as value,\n  \"Read IOPs\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+              "refId": "A"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  writes_per_sec as value,\n  \"Write IOPs\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+              "refId": "B"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  (input_per_sec / writes_per_sec)/1024. as value,\n  \"Write IO Size\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC\n",
+              "refId": "C"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT\n  FLOOR(UNIX_TIMESTAMP(time)) as time_sec,\n  (output_per_sec / reads_per_sec)/1024. as value,\n  \"Read IO Size\" as metric\nFROM flasharray_arrayperformance\nWHERE $__timeFilter(time)\nAND hostname LIKE $array_name\nORDER BY time ASC",
+              "refId": "D"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "FlashArray IO Profile",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "iops",
+              "label": "Throughput (IOPs)",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "decimals": 0,
+              "format": "deckbytes",
+              "label": "IO Size (kB per op)",
+              "logBase": 1,
+              "max": "1024",
+              "min": "0",
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "FlashArray IO Profile",
+      "titleSize": "h6"
+    }

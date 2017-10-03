@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+{{ block.super }}
+<meta http-equiv="refresh" content="5" >
+{% endblock head %}
+{% block title %}
+    Logs
+{% endblock title %}
+
+
+<!-- Main content -->
+{% block content %}
+    <div class="d-flex justify-content-between" style="monospace; font-family: 'Courier New'; font-size:12x">
+        <br>
+        {% for log_line in logs %}
+            {{ log_line }}<br>
+        {% endfor %}
+    </div>
+    <br>
+{% endblock content %}
+
+<!-- Optional scripts -->
+<script>
+{% block scripts %}
+{% endblock scripts %}
+</script>
