@@ -29,3 +29,7 @@
 * Clone/pull the repository
 * Run the setup.sh
 * Add FlashArrays for monitoring
+
+# Example:
+![Home Page](home.png)
+![Dashboard Example](dashboard.png)
