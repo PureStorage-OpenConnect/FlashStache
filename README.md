@@ -1,6 +1,12 @@
 # FlashStache
 
-* Comes with several template dashboards
+FlashStache is a front end for data collection from flash arrays into databases for use in grafana.  It is a webserver front end for automating python scripts that leverage the REST API to collect datapoints from the flasharray, and saves them to a database that can be accessed by grafana.  The automation includes scheduling how often data is collected from the flasharray, which flasharrays to collect data from, and links to the flasharray GUI and grafana dashboards.  FlashStache also populates a default dashboard for each flasharray for an immediate and basic functionality within grafana.
+
+FlashStache should not be considered a substitude for learning and using grafana - it is designed to simplify data collection, and provide a single location for starting, modifying, and stopping that datacollection.  
+
+Note:
+
+* FlashStache Comes with several template dashboards
 * Additional dashboards can be created in Grafana
 * To start required services run start.sh
     * MySQL/Django/Grafana will start on boot
