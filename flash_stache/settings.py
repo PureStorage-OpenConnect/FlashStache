@@ -151,3 +151,4 @@ RQ_QUEUES = {
         'DB': 0
     },
 }
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

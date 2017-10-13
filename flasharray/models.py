@@ -150,7 +150,7 @@ class FlashArray(TimeStampedModel):
                                 validators=[alphanumeric], primary_key=True)
     ip_address = models.GenericIPAddressField(unique=True,
                                               help_text='The IP Address of vir0 is recommended')
-    # REST API tokens are of 36 characters long (including - delimiters).
+    # REST API tokens are 36 characters long (including - delimiters).
     api_token = models.CharField(max_length=36, help_text='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx')
     interval = models.PositiveIntegerField('Interval', choices=INTERVALS, default=30)
     retention_hours = models.IntegerField('Database Retention', choices=RETENTIONS, default=24)
@@ -186,7 +186,7 @@ class FlashArray(TimeStampedModel):
         self.unschedule()
         # Clean-out entries in all related database tables.
         # TODO: This may need to be done manually, select_related isn't finding everything.
-        FlashArray.objects.filter(hostname=self.hostname).select_related().delete()
+        # FlashArray.objects.filter(hostname=self.hostname).select_related().delete()
         super(FlashArray, self).delete(*args, **kwargs)
 
     def is_scheduled(self):
@@ -469,7 +469,7 @@ class VolumeSpace(models.Model):
 
 
 # Duplicate Tables:
-# TODO: Need to find a way to make these inherit properly
+# TODO: Need to find a way to make these inherit to remove redundancy
 class ArrayPerformance(models.Model):
     """This exists in order to create a distinct database table."""
     hostname = models.CharField(max_length=255)

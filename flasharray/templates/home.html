@@ -4,10 +4,6 @@
 {% block title %}
     FlashArray Home
 {% endblock title %}
-{% block head %}
-{{ block.super }}
-<meta http-equiv="refresh" content="30" >
-{% endblock head %}
 <body>
     {% block content %}
         <div class="container-fluid">
@@ -34,7 +30,7 @@
                         <span class="glyphicon glyphicon-wrench"></span> Edit</a>
                         <a class="btn btn-danger btn-sm" href="{{url}}/flasharray/delete_array/{{array.hostname}}">
                         <span class="glyphicon glyphicon-trash"></span> Delete</a>
-                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#dashboard_{{array.hostname}}">Open Dashboard</button>
+                        <a class="btn btn-info btn-sm" href={{grafana}}/dashboard/script/flash_stache.js?hostname={{array.hostname}}&{{array.dashboards|join:"&"}} target="_blank">Open Dashboard</a>
                         <a class="btn btn-success btn-sm" href="https://{{array.ip_address}}" target="_blank">Open GUI</a>
                     </td>
                     <!-- Remote Assist Status -->
@@ -67,26 +63,6 @@
                     </td>
                 </tr>
                 </tbody>
-                <!-- Dashboard Modal -->
-                <div id="dashboard_{{array.hostname}}" class="modal fade" role="dialog">
-                  <div class="modal-dialog modal-lg">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">{{array.hostname}} Dashboard</h4>
-                      </div>
-                      <div class="modal-body">
-                          <p><a href={{grafana}}/dashboard/script/flash_stache.js?hostname={{array.hostname}}&{{array.dashboards|join:"&"}}>Full Screen</a></p>
-                        <p><iframe width=800 height=800 frameborder="0" src={{grafana}}/dashboard/script/flash_stache.js?hostname={{array.hostname}}&{{array.dashboards|join:"&"}}></iframe></p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Dashboard Modal -->
                 {% endfor %}
         </table> <!-- End Table -->
         </div> <!-- End Fluid Container -->
