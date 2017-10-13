@@ -4,6 +4,18 @@ FlashStache is a front end for data collection from flash arrays into databases 
 
 FlashStache should not be considered a substitude for learning and using grafana - it is designed to simplify data collection, and provide a single location for starting, modifying, and stopping that datacollection.  
 
+### Without FlashStache:
+1. Setup database
+2. Setup grafana server
+3. script data collection via REST API and save to database
+4. Set up grafana dashboards for arrays
+5. Maintain and modify scripting for changes in arrays/monitoring needs
+5. Use grafana with flasharray data
+
+### With FlashStache:
+1. Run setup.sh
+2. Use grafana with flasharray data
+
 Note:
 
 * FlashStache Comes with several template dashboards
