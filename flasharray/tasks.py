@@ -161,7 +161,7 @@ def clean_database(hostname, requests, retention_hours):
         class_name = getattr(models, models.API_REQUESTS[request]['class'])
         # Delete all rows which are greater than the cutoff timestamp
         try:
-            class_name.objects.filter(hostname=hostname, time__gte=cutoff).delete()
+            class_name.objects.filter(hostname=hostname, time__lte=cutoff).delete()
         except FieldError as error:
             error_str = 'Failed to clean database: {} for {}.\n{}'
             logger.debug(error_str.format(class_name, hostname, error))

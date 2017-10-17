@@ -16,7 +16,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_DIR = os.path.join(BASE_DIR, 'flasharray/static')
+STATIC_DIR = [os.path.join(BASE_DIR, 'flasharray/static')]
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'flasharray/templates')
 
 
@@ -151,4 +151,4 @@ RQ_QUEUES = {
         'DB': 0
     },
 }
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'flasharray')

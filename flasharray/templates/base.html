@@ -1,16 +1,11 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html lang="en">
     {% block head %}
     <head>
       <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
       <script src="{% static 'js/jquery-3.2.0.js' %}"></script>
       <script src="{% static 'js/bootstrap.js' %}"></script>
-        <script>
-            $(document).ready(function(){
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        </script>
         <title>
             {% block title %}
             {% endblock title %}

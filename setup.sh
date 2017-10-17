@@ -35,7 +35,7 @@ echo -e "\t- Updating Ubuntu"
 apt-get update -y &> ./install.log || stop_install
 apt-get upgrade -y &>> ./install.log || stop_install
 echo -e "\t- Installing Python, MySQL client, Redis, etc."
-apt-get install -y python-pip redis-server libmysqlclient-dev wget adduser libfontconfig nginx &>> ./install.log || stop_install
+apt-get install -y python-pip redis-server libmysqlclient-dev wget adduser libfontconfig &>> ./install.log || stop_install
 apt install -y expect python &>> ./install.log || stop_install
 
 echo -e  "\nStep 2: Installing Python modules."
@@ -91,10 +91,14 @@ echo -e "\t- Configuring Nginx"
 ufw allow 8080  &>> ./install.log || stop_install
 mkdir -p /etc/uwsgi/sites  &>> ./install.log || stop_install
 sed -i "s/change_me/${ip_addr}/g" flash_stache/flash_stache  &>> ./install.log || stop_install
-sed -i "s/path_to_change/\/home\/${user}\/flash_stache\/flash_stache/g" flash_stache/flash_stache  &>> ./install.log || stop_install
+sed -i "s/path_to_change/\/home\/${user}\/flash_stache\/\/flasharray/g" flash_stache/flash_stache  &>> ./install.log || stop_install
 sed -i "s/change_me/${user}/g" flash_stache/uwsgi.service  &>> ./install.log || stop_install
+sed -i "s/change_me/${user}/g" flash_stache/flash_stache.ini  &>> ./install.log || stop_install
 cp flash_stache/flash_stache.ini /etc/uwsgi/sites/flash_stache.ini  &>> ./install.log || stop_install
 cp flash_stache/uwsgi.service /etc/systemd/system/uwsgi.service  &>> ./install.log || stop_install
+
+apt-get install -y nginx  &>> ./install.log || stop_install
+
 ln -s /etc/nginx/sites-available/flash_stache /etc/nginx/sites-enabled  &>> ./install.log || stop_install
 cp flash_stache/flash_stache /etc/nginx/sites-available/  &>> ./install.log || stop_install
 nginx -t  &>> ./install.log || stop_install
@@ -110,5 +114,5 @@ ufw allow 'Nginx Full'  &>> ./install.log || stop_install
 systemctl enable nginx  &>> ./install.log || stop_install
 systemctl enable uwsgi  &>> ./install.log || stop_install
 
-echo -e "\t-Starting services and worker tasks"
+echo -e "\t- Starting services and worker tasks"
 ./start.sh &>> ./install.log || stop_install
