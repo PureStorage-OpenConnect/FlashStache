@@ -20,8 +20,6 @@ from django.contrib import admin
 from flasharray.views import index
 
 urlpatterns = [
-    # url(r'^admin/', admin.site.urls),
-    # url(r'^django-rq/', include('django_rq.urls')),
     url(r'^flasharray/', include('flasharray.urls', namespace='flasharray', app_name='flasharray')),
     url(r'^$', index),
 ]

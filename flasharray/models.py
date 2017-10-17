@@ -151,7 +151,9 @@ class FlashArray(TimeStampedModel):
     ip_address = models.GenericIPAddressField(unique=True,
                                               help_text='The IP Address of vir0 is recommended')
     # REST API tokens are 36 characters long (including - delimiters).
-    api_token = models.CharField(max_length=36, help_text='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx')
+    api_token = models.CharField(validators=[RegexValidator(regex=r'\w{8}-(\w{4}-){3}\w{12}',
+                                 message='Invalid API Token', code='nomatch')],
+                                 help_text='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', max_length=36)
     interval = models.PositiveIntegerField('Interval', choices=INTERVALS, default=30)
     retention_hours = models.IntegerField('Database Retention', choices=RETENTIONS, default=24)
     default_dashes = [item[0].split('.')[0] for item in DASHES] or 'No dashboards found'

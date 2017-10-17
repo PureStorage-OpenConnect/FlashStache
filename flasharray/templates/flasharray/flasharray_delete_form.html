@@ -12,7 +12,7 @@
           <form action="" method="post">{% csrf_token %}
             <p>Are you sure you want to delete "{{ object }}"?</p>
             <input type="submit" value="Confirm" class="btn btn-primary"/>
-            <a href="/" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
+            <a href="{{base_url}}/" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
           </form>
       </div>
     </div>

@@ -25,9 +25,9 @@
                 {% for array in arrays %}
                 <tr>
                     <!-- Name -->
-                    <td><h4> {{array.hostname}}</h4><a class="btn btn-warning btn-sm" href="{{url}}/flasharray/update_array/{{array.hostname}}">
+                    <td><h4> {{array.hostname}}</h4><a class="btn btn-warning btn-sm" href="/flasharray/update_array/{{array.hostname}}">
                         <span class="glyphicon glyphicon-wrench"></span> Edit</a>
-                        <a class="btn btn-danger btn-sm" href="{{url}}/flasharray/delete_array/{{array.hostname}}">
+                        <a class="btn btn-danger btn-sm" href="/flasharray/delete_array/{{array.hostname}}">
                         <span class="glyphicon glyphicon-trash"></span> Delete</a>
                         <a class="btn btn-info btn-sm" href={{grafana}}/dashboard/script/flash_stache.js?hostname={{array.hostname}}&{{array.dashboards|join:"&"}} target="_blank">Open Dashboard</a>
                         <a class="btn btn-success btn-sm" href="https://{{array.ip_address}}" target="_blank">Open GUI</a>

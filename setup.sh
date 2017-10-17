@@ -114,5 +114,9 @@ ufw allow 'Nginx Full'  &>> ./install.log || stop_install
 systemctl enable nginx  &>> ./install.log || stop_install
 systemctl enable uwsgi  &>> ./install.log || stop_install
 
+# Workaround for a bug in Nginx:
+cp flash_stache/proxy_params /etc/nginx/proxy_params &>> ./install.log || stop_install
+systemctl restart nginx  &>> ./install.log || stop_install
+
 echo -e "\t- Starting services and worker tasks"
 ./start.sh &>> ./install.log || stop_install

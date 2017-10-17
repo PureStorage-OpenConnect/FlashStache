@@ -57,6 +57,7 @@ class FlashArrayCreate(CreateView):
     form = FlashArrayForm
     model = models.FlashArray
     template_name_suffix = '_create_form'
+    success_url = '/flasharray/home.html'
 
 
 class FlashArrayDelete(DeleteView):
@@ -74,3 +75,5 @@ class FlashArrayUpdate(UpdateView):
     form = FlashArrayForm
     model = models.FlashArray
     template_name_suffix = '_update_form'
+    success_url = '/flasharray/home.html'
+
