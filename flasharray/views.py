@@ -23,7 +23,7 @@ def index(request):
         'arrays': models.FlashArray.objects.distinct(),
         'remote_assist': models.RemoteAssist.objects.distinct(),
         'array_status': models.ArrayStatus.objects.distinct(),
-        'url': 'http://{}:8080'.format(ip_addr),
+        'url': 'http://{}'.format(ip_addr),
         'grafana': 'http://{}:3000'.format(ip_addr),
     }
     logger.info('Loaded Home Page.')
