@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+curdir=`pwd`
 ip_addr=`hostname -I`
 user=`who am i | awk '{print $1}'`
 
@@ -91,9 +92,10 @@ echo -e "\t- Configuring Nginx"
 ufw allow 8080  &>> ./install.log || stop_install
 mkdir -p /etc/uwsgi/sites  &>> ./install.log || stop_install
 sed -i "s/change_me/${ip_addr}/g" flash_stache/flash_stache  &>> ./install.log || stop_install
-sed -i "s/path_to_change/\/home\/${user}\/flash_stache\/\/flasharray/g" flash_stache/flash_stache  &>> ./install.log || stop_install
+sed -i "s/path_to_change/${pwd}\/flasharray/g" flash_stache/flash_stache  &>> ./install.log || stop_install
 sed -i "s/change_me/${user}/g" flash_stache/uwsgi.service  &>> ./install.log || stop_install
 sed -i "s/change_me/${user}/g" flash_stache/flash_stache.ini  &>> ./install.log || stop_install
+sed -i "s/change_path/${pwd}/g" flash_stache/flash_stache.ini & >> ./install.log || stop_install
 cp flash_stache/flash_stache.ini /etc/uwsgi/sites/flash_stache.ini  &>> ./install.log || stop_install
 cp flash_stache/uwsgi.service /etc/systemd/system/uwsgi.service  &>> ./install.log || stop_install
 
@@ -103,7 +105,7 @@ ln -s /etc/nginx/sites-available/flash_stache /etc/nginx/sites-enabled  &>> ./in
 cp flash_stache/flash_stache /etc/nginx/sites-available/  &>> ./install.log || stop_install
 nginx -t  &>> ./install.log || stop_install
 echo -e "\t- Starting Nginx"
-# uwsgi --http :8080 --chdir /home/${user}/flash_stache/flash_stache/ -w flash_stache.wsgi &>> ./install.log || stop_install
+# uwsgi --http :8080 --chdir ${curdir}/flash_stache/ -w flash_stache.wsgi &>> ./install.log || stop_install
 echo -e "\t- Configuring boot time settings"
 systemctl restart nginx  &>> ./install.log || stop_install
 systemctl start uwsgi  &>> ./install.log || stop_install
@@ -117,6 +119,7 @@ systemctl enable uwsgi  &>> ./install.log || stop_install
 # Workaround for a bug in Nginx:
 cp flash_stache/proxy_params /etc/nginx/proxy_params &>> ./install.log || stop_install
 systemctl restart nginx  &>> ./install.log || stop_install
+systemctl restart uwsgi &>> ./install.log || stop_install
 
 echo -e "\t- Starting services and worker tasks"
 ./start.sh &>> ./install.log || stop_install
