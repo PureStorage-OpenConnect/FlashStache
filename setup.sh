@@ -40,8 +40,8 @@ apt-get install -y python-pip redis-server libmysqlclient-dev wget adduser libfo
 apt install -y expect python &>> ./install.log || stop_install
 
 echo -e  "\nStep 2: Installing Python modules."
-pip install --upgrade pip &>> ./install.log || stop_install
-pip install django django-multiselectfield django-rq django-rq-scheduler grafana_api_client MySQL-python purestorage uwsgi &>> ./install.log || stop_install
+pip2 install --upgrade pip &>> ./install.log || stop_install
+pip2 install django django-multiselectfield django-rq django-rq-scheduler grafana_api_client MySQL-python purestorage uwsgi &>> ./install.log || stop_install
 
 echo -e  "\nStep 3: Starting and configuring MySQL Server."
 MYSQL_INSTALL=$(expect -c "
@@ -60,6 +60,8 @@ expect eof
 
 echo "$MYSQL_INSTALL" &>> ./install.log || stop_install
 service mysql start &>> ./install.log || stop_install
+# Give mysql some time to start
+sleep 5;
 /usr/bin/mysql -h 0.0.0.0 -P 3306 --protocol=tcp -u root --password=${password} -e "CREATE DATABASE IF NOT EXISTS flash_stache; SET @@global.time_zone = '+00:00';" &>> ./install.log || stop_install
 
 echo -e  "\nStep 4: Starting and configuring Grafana Server."
@@ -74,7 +76,8 @@ cp flasharray/static/image/mustache.svg /usr/share/grafana/public/img/grafana_ic
 cp defaults.ini /usr/share/grafana/conf/defaults.ini &>> ./install.log || stop_install
 for file in `ls /usr/share/grafana/public/css/*`; do echo $file; /bin/sed -i 's/\\e903/FlashStache/g' ${file}; done &>> ./install.log || stop_install
 service grafana-server start &>> ./install.log || stop_install
-sleep 5  # Wait for grafana-server to start
+# Give the grafana-server time to start
+sleep 5
 python configure_grafana.py -p ${password} &>> ./install.log || stop_install
 /bin/systemctl enable grafana-server &>> ./install.log || stop_install
 
@@ -92,10 +95,10 @@ echo -e "\t- Configuring Nginx"
 ufw allow 8080  &>> ./install.log || stop_install
 mkdir -p /etc/uwsgi/sites  &>> ./install.log || stop_install
 sed -i "s/change_me/${ip_addr}/g" flash_stache/flash_stache  &>> ./install.log || stop_install
-sed -i "s/path_to_change/${pwd}\/flasharray/g" flash_stache/flash_stache  &>> ./install.log || stop_install
+sed -i "s/path_to_change/${curdir//\//\\/}\/flasharray/g" flash_stache/flash_stache  &>> ./install.log || stop_install
 sed -i "s/change_me/${user}/g" flash_stache/uwsgi.service  &>> ./install.log || stop_install
 sed -i "s/change_me/${user}/g" flash_stache/flash_stache.ini  &>> ./install.log || stop_install
-sed -i "s/change_path/${pwd}/g" flash_stache/flash_stache.ini & >> ./install.log || stop_install
+sed -i "s/change_path/${curdir//\//\\/}/g" flash_stache/flash_stache.ini &>> ./install.log || stop_install
 cp flash_stache/flash_stache.ini /etc/uwsgi/sites/flash_stache.ini  &>> ./install.log || stop_install
 cp flash_stache/uwsgi.service /etc/systemd/system/uwsgi.service  &>> ./install.log || stop_install
 
