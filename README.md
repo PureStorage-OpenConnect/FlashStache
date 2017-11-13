@@ -46,6 +46,7 @@ Note:
 
 * Clone/pull the repository
 * Run the setup.sh
+* Navigate to the host IP address
 * Add FlashArrays for monitoring
 
 # Example:
