@@ -2,7 +2,12 @@
 
 FlashStache is a front end for data collection from flash arrays into databases for use in grafana.  For more information about using grafana once the server is configured, please see https://grafana.com/.  FlashStache is a webserver front end for automating python scripts that leverage the REST API to collect datapoints from the flasharray, and saves them to a database that can be accessed by grafana.  The automation includes scheduling how often data is collected from the flasharray, which flasharrays to collect data from, and links to the flasharray GUI and grafana dashboards.  FlashStache also populates a default dashboard for each flasharray for an immediate and basic functionality within grafana.
 
-FlashStache should not be considered a substitude for learning and using grafana - it is designed to simplify data collection, and provide a single location for starting, modifying, and stopping that datacollection.  For CentOS deployments, a CentOS OVA has been built, and can be found at: https://purestorage.box.com/s/zqaojdy1e4f18lbim4lolpskdkt9vhsj.  Default user/pass for the CentOS OVA is flashstache/flash
+FlashStache should not be considered a substitude for learning and using grafana - it is designed to simplify data collection, and provide a single location for starting, modifying, and stopping that datacollection.  For CentOS deployments, a CentOS OVA has been built, and can be found at: https://purestorage.box.com/s/zqaojdy1e4f18lbim4lolpskdkt9vhsj.  
+
+### Default Logins for CentOS OVA:
+CentOS root: flashstache/flash
+FlashStache: flashstache/flashstache
+Grafana:     admin/flashstache
 
 ### Without FlashStache:
 1. Setup database
