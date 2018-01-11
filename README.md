@@ -6,7 +6,9 @@ FlashStache should not be considered a substitude for learning and using grafana
 
 ### Default Logins for CentOS OVA:
 CentOS root: flashstache/flash
+
 FlashStache: flashstache/flashstache
+
 Grafana:     admin/flashstache
 
 ### Without FlashStache:
