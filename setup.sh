@@ -76,6 +76,9 @@ echo -e "\t- Downloading Grafana dpkg."
 wget -nc https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_4.5.2_amd64.deb &>> ./install.log || stop_install
 # Sleep for 5 seconds so we don't have lock contention for the dpkg file.
 sleep 5;
+if [ -f /var/lib/dpkg/lock ]
+  then echo 'Found lock on dpkg.  Please wait until dpkg is not in use or remove the lock.' &>> ./install.log || stop_install
+fi
 echo -e "\t- Installing Grafana"
 dpkg -i ./grafana_4.5.2_amd64.deb || stop_install  # TODO: Figure out why this breaks when redirected...
 echo -e "\t- Configuring Grafana and starting Services"
