@@ -49,6 +49,8 @@ pip2 install grafana_api_client==0.2.0 &>> ./install.log || stop_install
 pip2 install MySQL-python==1.2.5 &>> ./install.log || stop_install
 pip2 install purestorage==1.11.3 &>> ./install.log || stop_install
 pip2 install uwsgi==2.0.16 &>> ./install.log || stop_install
+pip2 install requests>=2.4.2  &>> ./install.log || stop_install
+
 
 echo -e  "\nStep 3: Starting and configuring MySQL Server."
 MYSQL_INSTALL=$(expect -c "
