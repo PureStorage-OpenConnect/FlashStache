@@ -80,6 +80,7 @@ if [ -f /var/lib/dpkg/lock ]
   then echo 'Found lock on dpkg.  Please wait until dpkg is not in use or remove the lock.' &>> ./install.log || stop_install
 fi
 echo -e "\t- Installing Grafana"
+lsof /var/lib/dpkg/lock
 dpkg -i ./grafana_4.5.2_amd64.deb || stop_install  # TODO: Figure out why this breaks when redirected...
 echo -e "\t- Configuring Grafana and starting Services"
 cp flasharray/static/js/flash_stache.js /usr/share/grafana/public/dashboards/ &>> ./install.log || stop_install
