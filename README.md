@@ -52,7 +52,10 @@ Note:
 # Installation (Ubuntu 16.04):
 
 * Clone/pull the repository
+`git clone https://github.com/PureStorage-OpenConnect/FlashStache.git`
 * Run the setup.sh
+`cd FlashStache/`
+`sudo -H ./setup.sh`
 * Navigate to the host IP address
 * Add FlashArrays for monitoring
 
