@@ -77,7 +77,14 @@ wget -nc https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_4.5
 # Sleep for 5 seconds so we don't have lock contention for the dpkg file.
 sleep 5;
 if [ -f /var/lib/dpkg/lock ]
-  then echo 'Found lock on dpkg.  Please wait until dpkg is not in use or remove the lock.' &>> ./install.log || stop_install
+then
+if ! [ `ps aux | grep dpkg | grep -v grep` ]
+# If nobody is using dpkg, then remove the lock.
+then sudo rm /var/lib/dpkg/lock
+echo "Found lock on dpkg, but nobody was using it." &>> ./install.log
+fi
+else
+echo "Found lock on dpkg, but it is in use.  Please finish using dpkg before running installation." &>> ./install.log
 fi
 echo -e "\t- Installing Grafana"
 lsof /var/lib/dpkg/lock
