@@ -41,7 +41,14 @@ apt install -y expect python &>> ./install.log || stop_install
 
 echo -e  "\nStep 2: Installing Python modules."
 pip2 install --upgrade pip &>> ./install.log || stop_install
-pip2 install django django-multiselectfield django-rq django-rq-scheduler grafana_api_client MySQL-python purestorage uwsgi &>> ./install.log || stop_install
+pip2 install django &>> ./install.log || stop_install
+pip2 install django-multiselectfield &>> ./install.log || stop_install
+pip2 install django-rq &>> ./install.log || stop_install
+pip2 install django-rq-scheduler &>> ./install.log || stop_install
+pip2 install grafana_api_client &>> ./install.log || stop_install
+pip2 install MySQL-python &>> ./install.log || stop_install
+pip2 install purestorage &>> ./install.log || stop_install
+pip2 install uwsgi &>> ./install.log || stop_install
 
 echo -e  "\nStep 3: Starting and configuring MySQL Server."
 MYSQL_INSTALL=$(expect -c "
