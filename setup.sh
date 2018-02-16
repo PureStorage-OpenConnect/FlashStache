@@ -36,7 +36,7 @@ echo -e "\t- Updating Ubuntu"
 apt-get update -y &> ./install.log || stop_install
 apt-get upgrade -y &>> ./install.log || stop_install
 echo -e "\t- Installing Python, MySQL client, Redis, etc."
-apt-get install -y python-pip python-dev redis-server libmysqlclient-dev wget adduser libfontconfig &>> ./install.log || stop_install
+apt-get install -y python-pip python-dev redis-server libmysqlclient-dev wget adduser libfontconfig systemd &>> ./install.log || stop_install
 apt install -y expect python &>> ./install.log || stop_install
 
 echo -e  "\nStep 2: Installing Python modules."
