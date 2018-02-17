@@ -70,7 +70,7 @@ expect eof
 echo "$MYSQL_INSTALL" &>> ./install.log || stop_install
 service mysql start &>> ./install.log || stop_install
 # Give mysql some time to start
-sleep 5;
+sleep 10;
 /usr/bin/mysql -h 0.0.0.0 -P 3306 --protocol=tcp -u root --password=${password} -e "CREATE DATABASE IF NOT EXISTS flash_stache; SET @@global.time_zone = '+00:00';" &>> ./install.log || stop_install
 
 echo -e  "\nStep 4: Starting and configuring Grafana Server."
@@ -78,16 +78,6 @@ echo -e "\t- Downloading Grafana dpkg."
 wget -nc https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_4.5.2_amd64.deb &>> ./install.log || stop_install
 # Sleep for 5 seconds so we don't have lock contention for the dpkg file.
 sleep 5;
-if [ -f /var/lib/dpkg/lock ]
-then
-if ! [ `ps aux | grep dpkg | grep -v grep` ]
-# If nobody is using dpkg, then remove the lock.
-then sudo rm /var/lib/dpkg/lock
-echo "Found lock on dpkg, but nobody was using it." &>> ./install.log
-fi
-else
-echo "Found lock on dpkg, but it is in use.  Please finish using dpkg before running installation." &>> ./install.log
-fi
 echo -e "\t- Installing Grafana"
 lsof /var/lib/dpkg/lock
 dpkg -i ./grafana_4.5.2_amd64.deb || stop_install  # TODO: Figure out why this breaks when redirected...
