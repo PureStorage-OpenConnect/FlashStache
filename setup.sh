@@ -68,6 +68,7 @@ expect eof
 
 
 echo "$MYSQL_INSTALL" &>> ./install.log || stop_install
+sleep 10;
 service mysql start &>> ./install.log || stop_install
 # Give mysql some time to start
 sleep 10;
