@@ -4,6 +4,9 @@ FlashStache is a front end for data collection from flash arrays into databases 
 
 FlashStache should not be considered a substitude for learning and using grafana - it is designed to simplify data collection, and provide a single location for starting, modifying, and stopping that datacollection.  For CentOS deployments, a CentOS OVA has been built, and can be found at: https://purestorage.box.com/s/zqaojdy1e4f18lbim4lolpskdkt9vhsj.  
 
+# Demonstration Video and iPython Notebook
+https://purestorage.app.box.com/folder/47026827834
+
 ### Default Logins for CentOS OVA:
 CentOS root: flashstache/flash
 
