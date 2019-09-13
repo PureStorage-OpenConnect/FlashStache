@@ -1,8 +1,10 @@
 # FlashStache
 
-FlashStache is a front end for data collection from flash arrays into databases for use in grafana.  For more information about using grafana once the server is configured, please see https://grafana.com/.  FlashStache is a webserver front end for automating python scripts that leverage the REST API to collect datapoints from the flasharray, and saves them to a database that can be accessed by grafana.  The automation includes scheduling how often data is collected from the flasharray, which flasharrays to collect data from, and links to the flasharray GUI and grafana dashboards.  FlashStache also populates a default dashboard for each flasharray for an immediate and basic functionality within grafana.
+FlashStache is a front end for data collection from Pure Storage FlashArrays into databases for use in Grafana.  For more information about using Grafana once the server is configured, please see https://grafana.com/.
 
-FlashStache should not be considered a substitude for learning and using grafana - it is designed to simplify data collection, and provide a single location for starting, modifying, and stopping that datacollection.  For CentOS deployments, a CentOS OVA has been built, and can be found at: https://purestorage.box.com/s/zqaojdy1e4f18lbim4lolpskdkt9vhsj.  
+FlashStache is a webserver front end for automating Python scripts that leverage the REST API to collect datapoints from the FlashArray, and saves them to a database that can be accessed by Grafana.  The automation includes scheduling how often data is collected from the FlashArray, which FlashArrays to collect data from, and links to the FlashAarray GUI and grafana dashboards.  FlashStache also populates a default dashboard for each FlashArray for an immediate and basic functionality within Grafana.
+
+FlashStache should not be considered a substitude for learning and using Grafana - it is designed to simplify data collection, and provide a single location for starting, modifying, and stopping that data collection.  For CentOS deployments, a CentOS OVA has been built, and can be found at: https://purestorage.box.com/s/zqaojdy1e4f18lbim4lolpskdkt9vhsj
 
 ### Demonstration Video and iPython Notebook
 https://purestorage.box.com/s/9kzu4nbiuoy48y9vj9s6nb4d23ujcti1
@@ -20,15 +22,15 @@ Grafana:     admin/flashstache
 3. script data collection via REST API and save to database
 4. Set up grafana dashboards for arrays
 5. Maintain and modify scripting for changes in arrays/monitoring needs
-5. Use grafana with flasharray data
+6. Use Grafana with FlashArray data
 
 ### With FlashStache:
 1. Run setup.sh
-2. Use grafana with flasharray data
+2. Use Grafana with FlashArray data
 
 Note:
 
-* FlashStache Comes with several template dashboards
+* FlashStache comes with several template dashboards
 * Additional dashboards can be created in Grafana
 * To start required services run start.sh
     * MySQL/Django/Grafana will start on boot
@@ -56,9 +58,9 @@ Note:
 
 * Clone/pull the repository
 `git clone https://github.com/PureStorage-OpenConnect/FlashStache.git`
-* Run the setup.sh
-`cd FlashStache/`
-`sudo -H ./setup.sh`
+* Run the setup.sh with  
+        `cd FlashStache/`  
+        `sudo -H ./setup.sh`
 * Navigate to the host IP address
 * Add FlashArrays for monitoring
 

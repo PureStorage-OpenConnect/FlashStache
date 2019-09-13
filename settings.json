@@ -1,5 +1,6 @@
 {
     "id": "FlashStache",
+    "name": "FlashStache Grafana Dashboard",
     "filter": "devops",
     "image": "http://code.purestorage.com/images/mustache.svg",
     "featured": 1,
