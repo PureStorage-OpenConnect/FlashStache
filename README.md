@@ -1,3 +1,7 @@
+# DEPRECATED
+This project is deprecated in favor if the [OpenMetrics Exports](https://github.com/PureStorage-OpenConnect/openmetrics-exporters).
+No future support or development will be made for this toolset.
+
 # FlashStache
 
 FlashStache is a front end for data collection from Pure Storage FlashArrays into databases for use in Grafana.  For more information about using Grafana once the server is configured, please see https://grafana.com/.
